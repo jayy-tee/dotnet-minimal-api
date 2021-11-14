@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace JayyTee.MinimialApi;
 
 [ApiController]
-[Route("{controller}")]
+[Route("[controller]")]
 public class DummyController : ControllerBase
 {
     [HttpGet]
