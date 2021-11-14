@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,7 +16,6 @@ namespace JayyTee.MinimalApi.ApiTests;
 
 public class TestBase
 {
-    private readonly ApiWebApplicationFactory _factory;
     private WebApplication? _webApp;
 
     protected HttpClient Client { get; private set; }
@@ -79,18 +77,15 @@ public class TestBase
             .Last();
     }
 
-    [OneTimeTearDown]
-    public async Task BaseTearDown()
+    [TearDown]
+    public async Task TearDown()
     {
         Client.Dispose();
-        _factory?.Dispose();
         
         if (_webApp is not null)
         {
             await _webApp.StopAsync();
             await _webApp.DisposeAsync();
         }
-
-
     }
 }
